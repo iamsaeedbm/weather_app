@@ -12,6 +12,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var test;
   String? cityName;
+  String _currentTime = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    getTime();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: Text('second page'),
             ),
+            Text(_currentTime),
           ],
         ),
       ),
@@ -60,5 +70,12 @@ class _HomeScreenState extends State<HomeScreen> {
       'http://api.weatherapi.com/v1/current.json?key=6877e03858b14079ba5132545253004&q=Tehran&aqi=no',
     );
     test = response.data['location']['name'];
+  }
+
+  void getTime() {
+    var now = DateTime.now();
+    setState(() {
+      _currentTime = '${now.hour} ${now.minute} ${now.second}';
+    });
   }
 }
